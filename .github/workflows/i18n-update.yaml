@@ -1,0 +1,56 @@
+name: I18n Update
+
+# **What it does**: Push and pull i18n files, when there is changes on it
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - public/i18n/*.json
+
+permissions:
+  contents: read
+  pull-requests: write
+  # This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  updatei18n:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install -g @tolgee/cli
+      - name: Push to tolgee
+        run: tolgee push --force-mode keep  public/i18n
+        env:
+          TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
+      - name: Pull from tolgee
+        run: tolgee pull -o public/i18n
+        env:
+          TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        id: cpr
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: i18n - Update translations
+          title: i18n - Update translations
+          body: i18n - Update translations
+          base: main
+          labels: automated-pr
+          branch: i18n-update-translations
+          delete-branch: true
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.PAT }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash

@@ -1,0 +1,47 @@
+name: Deploy
+
+# **What it does**: Deploy to my app
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - src/**
+      - package.json
+      - app.yaml
+      - public/**
+    
+permissions:
+  contents: read
+  id-token: 'write'
+  # This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install -g @tolgee/cli
+      - run: tolgee pull -o public/i18n
+        env:
+          TOLGEE_API_KEY: ${{ secrets.TOLGEE_API_KEY }}
+      - run: npm install
+      - run: npm run build
+
+      - name: Auth
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GOOGLE_AUTH }}
+      - name: Deploy
+        id: 'deploy'
+        uses: 'google-github-actions/deploy-appengine@v1'
