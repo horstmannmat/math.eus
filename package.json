@@ -16,7 +16,7 @@
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
     "@tolgee/core": "^5.13.1",
-    "@tolgee/react": "^5.13.0",
+    "@tolgee/react": "^5.13.1",
     "@tolgee/web": "^5.13.0",
     "@vitejs/plugin-react": "^4.1.0",
     "intl-messageformat": "^10.5.4",
