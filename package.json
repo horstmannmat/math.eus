@@ -14,7 +14,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
-    "@mui/material": "^5.14.16",
+    "@mui/material": "^5.14.18",
     "@tolgee/core": "^5.16.0",
     "@tolgee/react": "^5.16.0",
     "@tolgee/web": "^5.16.2",
