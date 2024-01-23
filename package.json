@@ -13,7 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.5",
+    "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.5",
     "@tolgee/core": "^5.19.2",
     "@tolgee/react": "^5.19.2",
