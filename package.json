@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.8",
     "@mui/material": "^5.15.7",
-    "@tolgee/core": "^5.19.5",
+    "@tolgee/core": "^5.19.6",
     "@tolgee/react": "^5.19.5",
     "@tolgee/web": "^5.19.5",
     "@vitejs/plugin-react": "^4.2.1",
