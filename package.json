@@ -17,7 +17,7 @@
     "@mui/material": "^5.15.19",
     "@tolgee/core": "^5.27.1",
     "@tolgee/react": "^5.27.0",
-    "@tolgee/web": "^5.27.0",
+    "@tolgee/web": "^5.28.0",
     "@vitejs/plugin-react": "^4.3.0",
     "intl-messageformat": "^10.5.14",
     "react": "^18.3.1",
